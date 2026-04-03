@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirQuality - Clotsburg</title>
+    <!-- Font Awesome per icones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+</head>
+<body>
+<header>
+    <h1><i class="fa-solid fa-wind"></i> AirQuality Clotsburg</h1>
+    <div>
+        <span sec:authorize="isAuthenticated()">
+            <i class="fa-solid fa-user"></i>
+            <span sec:authentication="name"></span> |
+            <a th:href="@{/logout}">Tancar sessió</a>
+        </span>
+        <span sec:authorize="!isAuthenticated()">
+            <a th:href="@{/oauth2/authorization/google}"><i class="fa-brands fa-google"></i> Inicia sessió</a>
+        </span>
+    </div>
+</header>
+
+<main>
+    <div class="card">
+        <i class="fa-solid fa-cloud-sun"></i>
+        <h2>Consulta la qualitat de l'aire</h2>
+        <p>Introdueix el nom d'una ciutat per veure l'índex AQI i recomanacions de salut.</p>
+        <form action="/cerca" method="get" class="form-group">
+            <input type="text" name="ciutat" placeholder="Barcelona, Madrid..." required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>Dades proporcionades per <a href="https://aqicn.org" target="_blank">aqicn.org</a></p>
+</footer>
+</body>
+</html>

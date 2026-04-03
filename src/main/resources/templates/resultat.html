@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultat AQI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/styleResultat.css">
+</head>
+<body>
+<header>
+    <h1><i class="fa-solid fa-wind"></i> AirQuality Clotsburg</h1>
+</header>
+<main>
+    <div class="card">
+        <h2 th:text="${dades.ciutat}">Ciutat</h2>
+
+        <div class="aqi-badge"
+             th:classappend="${dades.aqi <= 50 ? 'bo' : (dades.aqi <= 100 ? 'moderat' : 'dolent')}"
+             th:text="${dades.aqi}">0</div>
+
+        <p th:text="${dades.nivell}" style="font-size:1.2rem; font-weight:bold; color:#333;">Nivell</p>
+
+        <div class="info">
+            <p><i class="fa-solid fa-clock"></i> <span th:text="${dades.horaUltimaMesura}">--</span></p>
+        </div>
+
+        <div class="recomanacio">
+            <p><i class="fa-solid fa-heart-pulse"></i> <span th:text="${dades.recomanacio}">--</span></p>
+        </div>
+
+        <a href="/" class="btn"><i class="fa-solid fa-arrow-left"></i> Nova cerca</a>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/styleError.css">
+</head>
+<body>
+<div class="card">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <h2>S'ha produït un error</h2>
+    <p th:text="${error}">Error desconegut</p>
+    <a href="/" class="btn"><i class="fa-solid fa-house"></i> Tornar a l'inici</a>
+</div>
+</body>
+</html>
