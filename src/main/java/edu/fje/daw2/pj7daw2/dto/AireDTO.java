@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AireResponseDTO {
+public class AireDTO {
     private String ciutat;
     private int aqi;
     private String nivell;
