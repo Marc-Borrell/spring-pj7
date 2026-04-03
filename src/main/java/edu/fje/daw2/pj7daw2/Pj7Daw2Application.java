@@ -9,5 +9,4 @@ public class Pj7Daw2Application {
     public static void main(String[] args) {
         SpringApplication.run(Pj7Daw2Application.class, args);
     }
-
 }
