@@ -2,6 +2,8 @@ package edu.fje.daw2.pj7daw2.service;
 
 import edu.fje.daw2.pj7daw2.dto.AireDTO;
 import edu.fje.daw2.pj7daw2.dto.AqicnResponseDTO;
+import edu.fje.daw2.pj7daw2.exception.CiutatNotFoundException;
+import edu.fje.daw2.pj7daw2.exception.TokenInvalidException;
 import edu.fje.daw2.pj7daw2.model.mongo.ContaminacioData;
 import edu.fje.daw2.pj7daw2.repository.mongo.ContaminacioRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +43,11 @@ public class ContaminacioService {
                 .retrieve()
                 .body(AqicnResponseDTO.class);
 
-        if (resposta == null || !"ok".equals(resposta.getStatus())) {
-            throw new RuntimeException("Error obtenint dades de la ciutat: " + ciutat);
+        if (resposta == null) {
+            throw new TokenInvalidException();
+        }
+        if (!"ok".equals(resposta.getStatus())) {
+            throw new CiutatNotFoundException(ciutat);
         }
 
         // Guardamos en MongoDB

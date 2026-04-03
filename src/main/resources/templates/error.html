@@ -10,6 +10,9 @@
 <div class="card">
     <i class="fa-solid fa-triangle-exclamation"></i>
     <h2>S'ha produït un error</h2>
+    <p style="font-size: 3rem; font-weight: bold; color: #f44336;"
+       th:if="${codi}"
+       th:text="${codi}">404</p>
     <p th:text="${error}">Error desconegut</p>
     <a href="/" class="btn"><i class="fa-solid fa-house"></i> Tornar a l'inici</a>
 </div>
