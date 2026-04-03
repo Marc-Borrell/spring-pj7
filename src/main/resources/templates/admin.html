@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ca" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Panell d'Administració</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/styleAdmin.css">
+</head>
+<body>
+<header>
+  <h1><i class="fa-solid fa-wind"></i> AirQuality - Panell d'Administració</h1>
+  <div>
+    <a th:href="@{/}"><i class="fa-solid fa-house"></i> Inici</a> |
+    <a th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i> Tancar sessió</a>
+  </div>
+</header>
+
+<main>
+  <!-- Perfil usuari -->
+  <div class="perfil">
+    <img th:src="${usuari.fotoUrl}" th:alt="${usuari.nom}" onerror="this.src='https://ui-avatars.com/api/?name=User'">
+    <div>
+      <h2 th:text="${usuari.nom}">Nom</h2>
+      <p th:text="${usuari.email}">email@example.com</p>
+    </div>
+  </div>
+
+  <!-- Gestió de favorites -->
+  <div class="card">
+    <h3><i class="fa-solid fa-star"></i> Les meves ciutats favorites</h3>
+
+    <!-- Formulari per afegir -->
+    <form action="/admin/afegir" method="post" class="form-group">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <input type="text" name="nomCiutat" placeholder="Afegir nova ciutat..." required>
+      <button type="submit" class="btn-primary">
+        <i class="fa-solid fa-plus"></i> Afegir
+      </button>
+    </form>
+
+    <!-- Llista de favorites -->
+    <table th:if="${!favorites.isEmpty()}">
+      <thead>
+      <tr>
+        <th><i class="fa-solid fa-city"></i> Ciutat</th>
+        <th>Accions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="ciutat : ${favorites}">
+        <td th:text="${ciutat.nomCiutat}">Barcelona</td>
+        <td style="display: flex; gap: 0.5rem;">
+          <a th:href="@{/cerca(ciutat=${ciutat.nomCiutat})}" class="btn-cerca">
+            <i class="fa-solid fa-magnifying-glass"></i> Consultar
+          </a>
+          <form th:action="@{/admin/eliminar/{id}(id=${ciutat.id})}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="btn-danger">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="empty" th:if="${favorites.isEmpty()}">
+      <i class="fa-solid fa-star" style="font-size:2rem; color:#ddd;"></i>
+      <p>Encara no tens ciutats favorites. Afegeix-ne una!</p>
+    </div>
+  </div>
+</main>
+</body>
+</html>
