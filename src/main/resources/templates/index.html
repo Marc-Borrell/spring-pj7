@@ -15,7 +15,8 @@
     <div>
         <span sec:authorize="isAuthenticated()">
             <i class="fa-solid fa-user"></i>
-            <span sec:authentication="name"></span> |
+            <span sec:authentication="principal.attributes['name']"></span> |
+            <a th:href="@{/admin}"><i class="fa-solid fa-gear"></i> Panell</a> |
             <a th:href="@{/logout}">Tancar sessió</a>
         </span>
         <span sec:authorize="!isAuthenticated()">
