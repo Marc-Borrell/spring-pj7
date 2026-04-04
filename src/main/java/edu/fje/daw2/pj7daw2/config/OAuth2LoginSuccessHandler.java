@@ -18,10 +18,14 @@ import java.io.IOException;
  * @version 1.0
  */
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final UsuariService usuariService;
+
+    public OAuth2LoginSuccessHandler(UsuariService usuariService) {
+        this.usuariService = usuariService;
+    }
 
     /**
      * Processa l'autenticació exitosa, desa l'usuari i redirigeix al panell.
