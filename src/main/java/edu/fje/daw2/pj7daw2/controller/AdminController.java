@@ -9,6 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controlador del panell d'administració.
+ * Gestiona les ciutats favorites de cada usuari autenticat via OAuth2.
+ *
+ * @author Grup1
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -17,6 +24,13 @@ public class AdminController {
     private final UsuariService usuariService;
     //private final UsuariRepository usuariRepository;
 
+    /**
+     * Mostra el panell d'administració amb el perfil i les ciutats favorites de l'usuari.
+     *
+     * @param oauth2User usuari autenticat via OAuth2
+     * @param model      model de Thymeleaf
+     * @return nom de la vista admin
+     */
     @GetMapping
     public String panell(@AuthenticationPrincipal OAuth2User oauth2User, Model model) {
         String email   = oauth2User.getAttribute("email");
@@ -31,6 +45,13 @@ public class AdminController {
         return "admin";
     }
 
+    /**
+     * Afegeix una ciutat als favorites de l'usuari autenticat.
+     *
+     * @param oauth2User usuari autenticat via OAuth2
+     * @param nomCiutat  nom de la ciutat a afegir
+     * @return redirecció al panell admin
+     */
     @PostMapping("/afegir")
     public String afegirFavorita(@AuthenticationPrincipal OAuth2User oauth2User,
                                  @RequestParam String nomCiutat) {
@@ -43,6 +64,12 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    /**
+     * Elimina una ciutat dels favorites de l'usuari.
+     *
+     * @param id identificador de la ciutat favorita a eliminar
+     * @return redirecció al panell admin
+     */
     @PostMapping("/eliminar/{id}")
     public String eliminarFavorita(@PathVariable Long id) {
         usuariService.eliminarFavorita(id);

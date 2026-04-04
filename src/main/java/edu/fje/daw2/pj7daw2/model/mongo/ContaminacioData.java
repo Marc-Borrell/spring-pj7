@@ -6,6 +6,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
+/**
+ * Document MongoDB que emmagatzema les dades de contaminació d'una ciutat.
+ * Només es desa una vegada per optimitzar les crides a l'API externa d'Aqicn.
+ *
+ * @author Grup1
+ * @version 1.0
+ */
 @Data
 @Document(collection = "contaminacio")
 public class ContaminacioData {

@@ -20,6 +20,14 @@ public class SecurityConfig {
         this.oauth2LoginSuccessHandler = oauth2LoginSuccessHandler;
     }
 
+    /**
+     * Defineix la cadena de filtres de seguretat.
+     * Configura els endpoints públics, els protegits i el flux OAuth2.
+     *
+     * @param http configuració de seguretat HTTP
+     * @return cadena de filtres configurada
+     * @throws Exception si hi ha un error de configuració
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -29,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/cerca", "/login", "/error").permitAll()
                         // Swagger públic (opcional)
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/v3/api-docs").permitAll()
                         .requestMatchers("/styles/**").permitAll()
                         .requestMatchers("/admin/**").authenticated()
                         // La resta requereix autenticació

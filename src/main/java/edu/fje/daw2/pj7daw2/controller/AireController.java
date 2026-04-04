@@ -16,6 +16,12 @@ public class AireController {
 
     private final ContaminacioService contaminacioService;
 
+    /**
+     * Retorna les dades de qualitat de l'aire d'una ciutat.
+     *
+     * @param ciutat nom de la ciutat a consultar
+     * @return ResponseEntity amb AireDTO que conté AQI, nivell i recomanació
+     */
     @GetMapping("/{ciutat}")
     public ResponseEntity<AireDTO> obtenirAire(@PathVariable String ciutat) {
         AireDTO resposta = contaminacioService.obtenirContaminacio(ciutat);

@@ -14,6 +14,13 @@ import org.springframework.web.client.RestClient;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * Servei per a obtenir i gestionar les dades de contaminació de l'aire.
+ * Consumeix l'API externa d'Aqicn i utilitza MongoDB com a caché.
+ *
+ * @author Grup1
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class ContaminacioService {
@@ -27,6 +34,16 @@ public class ContaminacioService {
     @Value("${aqicn.api.url}")
     private String apiUrl;
 
+    /**
+     * Obté les dades de contaminació d'una ciutat.
+     * Si la ciutat ja existeix a MongoDB, retorna les dades guardades.
+     * Si no, crida l'API d'Aqicn, desa el resultat i el retorna.
+     *
+     * @param ciutat nom de la ciutat a consultar
+     * @return AireDTO amb les dades de qualitat de l'aire
+     * @throws TokenInvalidException   si el token de l'API no és vàlid
+     * @throws CiutatNotFoundException si la ciutat no existeix a l'API
+     */
     public AireDTO obtenirContaminacio(String ciutat) {
 
         // Si ya existe en MongoDB, devolvemos el dato guardado
@@ -63,6 +80,12 @@ public class ContaminacioService {
         return mapToAireDTO(dades);
     }
 
+    /**
+     * Converteix un document de ContaminacioData a AireDTO.
+     *
+     * @param dades document MongoDB amb les dades de contaminació
+     * @return AireDTO amb les dades mapejades
+     */
     private AireDTO mapToAireDTO(ContaminacioData dades) {
         return AireDTO.builder()
                 .ciutat(dades.getCiutat())
@@ -73,6 +96,12 @@ public class ContaminacioService {
                 .build();
     }
 
+    /**
+     * Calcula el nivell de perillositat segons el valor AQI.
+     *
+     * @param aqi valor numèric de l'índex de qualitat de l'aire
+     * @return String amb el nivell de perillositat
+     */
     private String calcularNivell(int aqi) {
         if (aqi <= 50)  return "Bo";
         if (aqi <= 100) return "Moderat";
@@ -82,6 +111,12 @@ public class ContaminacioService {
         return "Perillós";
     }
 
+    /**
+     * Calcula la recomanació de salut segons el valor AQI.
+     *
+     * @param aqi valor numèric de l'índex de qualitat de l'aire
+     * @return String amb la recomanació de salut
+     */
     private String calcularRecomanacio(int aqi) {
         if (aqi <= 50)  return "L'aire és net. Ideal per a activitats a l'exterior.";
         if (aqi <= 100) return "Qualitat acceptable. Les persones sensibles poden notar molèsties.";

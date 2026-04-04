@@ -4,6 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+/**
+ * DTO per mapejar la resposta JSON de l'API externa d'Aqicn.
+ * Només mapeja els camps necessaris, ignorant la resta amb @JsonIgnoreProperties.
+ *
+ * @author Grup1
+ * @version 1.0
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AqicnResponseDTO {

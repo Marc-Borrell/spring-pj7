@@ -1,0 +1,10 @@
+edu.fje.daw2.pj7daw2
+edu.fje.daw2.pj7daw2.config
+edu.fje.daw2.pj7daw2.controller
+edu.fje.daw2.pj7daw2.dto
+edu.fje.daw2.pj7daw2.exception
+edu.fje.daw2.pj7daw2.model.mongo
+edu.fje.daw2.pj7daw2.model.mysql
+edu.fje.daw2.pj7daw2.repository.mongo
+edu.fje.daw2.pj7daw2.repository.mysql
+edu.fje.daw2.pj7daw2.service
